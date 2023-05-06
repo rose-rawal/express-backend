@@ -29,7 +29,7 @@ const {
 /**
  * express app initialization
  */
-const app = express()
+export const app = express()
 
 /**
  * database connection
@@ -58,4 +58,5 @@ app.use("/", (req,res)=>{
  * port: 8000,
  * host: localhost
  */
+
 export default ServerlessHttp(app)
