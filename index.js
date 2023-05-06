@@ -1,4 +1,4 @@
-import express, { Router } from 'express'; // package.json specify as "type": "module"
+import express from 'express'; // package.json specify as "type": "module"
 // const express = require("express") // if type is not set to module
 import mongoose from "mongoose"
 import dotenv from "dotenv"
@@ -8,7 +8,8 @@ dotenv.config()
 const {
     NODE_ENV,
     DEV_MONGO_URL,
-    PROD_MONGO_URL
+    PROD_MONGO_URL,
+    PORT,
 } = process.env
 
 /**
@@ -32,7 +33,6 @@ const app = express()
 /**
  * database connection
  */
-console.log(NODE_ENV)
 mongoose.connect(NODE_ENV === "development" ? DEV_MONGO_URL: PROD_MONGO_URL)
   .then(() => {
       console.log('Database connected');
@@ -43,7 +43,7 @@ mongoose.connect(NODE_ENV === "development" ? DEV_MONGO_URL: PROD_MONGO_URL)
 
 // Parses the query params from request url
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+app.use(express.json()) // request body / response 
 
 // Uses imported routes in express
 app.use('/api',router);
@@ -53,6 +53,7 @@ app.use('/api',router);
  * port: 8000,
  * host: localhost
  */
-app.listen(8000, () => {
-    console.log("Server running on http://localhost:8000")
+const port = PORT || 8000
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`)
 })
