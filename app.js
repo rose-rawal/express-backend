@@ -3,6 +3,7 @@ import express from 'express'; // package.json specify as "type": "module"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import router from "./routes/index.js"
+import ServerlessHttp from 'serverless-http';
 dotenv.config()
 
 const {
@@ -53,4 +54,4 @@ app.use('/api',router);
  * port: 8000,
  * host: localhost
  */
-export default app
+export default ServerlessHttp(app)
