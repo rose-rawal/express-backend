@@ -49,6 +49,10 @@ app.use(express.json()) // request body / response
 // Uses imported routes in express
 app.use('/api',router);
 
+app.use("/", (req,res)=>{
+    res.send("reply from server")
+})
+
 /**
  * Server run certain port and hostname, 
  * port: 8000,
