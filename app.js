@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import router from "./routes/index.js"
 import ServerlessHttp from 'serverless-http';
+import cors from "cors"
 dotenv.config()
 
 const {
@@ -45,6 +46,8 @@ mongoose.connect(NODE_ENV === "development" ? DEV_MONGO_URL: PROD_MONGO_URL)
 // Parses the query params from request url
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()) // request body / response 
+
+app.use(cors("*")) // any domain can hit this backend server
 
 // Uses imported routes in express
 app.use('/api',router);
