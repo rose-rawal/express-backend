@@ -47,10 +47,11 @@ mongoose.connect(NODE_ENV === "development" ? DEV_MONGO_URL: PROD_MONGO_URL)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()) // request body / response 
 
-app.use(cors({
-    origin:'http://localhost:3000/'
-}
-)) // any domain can hit this backend server
+app.use(cors((req,callback)=>{
+    callback(null, {
+        origin: true
+    })
+})) // any domain can hit this backend server
 
 // Uses imported routes in express
 app.use('/api',router);
